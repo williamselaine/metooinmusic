@@ -1,4 +1,6 @@
-import { Card, Container, Link } from "@mui/material";
+import { useState, useEffect } from 'react';
+import { Card, Container, Link } from '@mui/material';
+import Theme from '../constants/Theme';
 
 const styles = {
   parent: {
@@ -7,34 +9,51 @@ const styles = {
     justifyContent: 'center',
     height: '100vh',
     width: '100vw',
+    backgroundColor: Theme.light.background
+  },
+  show: {
+    opacity: '1.0',
+    transition: '1s'
+  },
+  hide: {
+    opacity: '0.0',
+    transition: '1s'
   },
   header: {
-    width: "100%",
+    width: '100%'
   },
   card: {
-    padding: "2em 0px",
-    textAlign: "center",
-    width: "100%",
-    boxShadow: "0px 10px 20px rgba(77, 97, 108, .24)",
-    borderRadius: "4px",
+    padding: '2em 0px',
+    textAlign: 'center',
+    width: '100%',
+    boxShadow: '0px 10px 20px rgba(77, 97, 108, .24)',
+    borderRadius: '4px',
+    backgroundColor: Theme.light.primary,
+    '& a': {
+      color: Theme.light.tertiary,
+      textDecorationColor: Theme.light.tertiary,
+      fontWeight: 600
+    }
   }
-}
+};
 
 function About() {
+  const [show, setShow] = useState(false);
+
+  useEffect(() => {
+    setShow(true);
+  }, []);
 
   return (
     <>
-      <Container sx={styles.parent}>
+      <Container sx={show ? { ...styles.parent, ...styles.show } : { ...styles.parent, ...styles.hide }}>
         <Card sx={styles.card}>
-          <p>
-            🛠️ Site under construction! Check back soon 🧰
-          </p>
-          <Link href="https://gofund.me/5f1c7f9e">Support us on GoFundMe</Link>
+          <p>🛠️ Site under construction! Check back soon 🧰</p>
+          <Link href='https://gofund.me/5f1c7f9e'>Support us on GoFundMe</Link>
         </Card>
       </Container>
-
     </>
-  )
+  );
 }
 
 export default About;
