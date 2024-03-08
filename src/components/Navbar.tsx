@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { disableBodyScroll } from 'body-scroll-lock';
 import { Box, Button } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import Theme from '../constants/Theme';
@@ -8,6 +9,9 @@ import useResizer from '../utils/useResizer';
 export default function NavBar() {
   const screenDimensions = useResizer();
   const [showMenu, setShowMenu] = useState(!screenDimensions.isMobile);
+
+  const targetElement = document.querySelector('#root');
+  targetElement && disableBodyScroll(targetElement);
 
   useEffect(() => {
     setShowMenu(!screenDimensions.isMobile);
@@ -23,7 +27,7 @@ export default function NavBar() {
       justifyContent: 'space-between',
       width: 'calc(100% - 64px)',
       zIndex: '9999',
-      padding: '0px 32px'
+      padding: '0px 32px',
     },
     title: {
       fontSize: screenDimensions.isMobile ? '32px' : '46px',
@@ -75,7 +79,6 @@ export default function NavBar() {
       margin: '0px 12px',
       '& a': {
         color: Theme.light.tertiary,
-        fontStyle: 'italic',
         textDecoration: 'none'
       }
     }
