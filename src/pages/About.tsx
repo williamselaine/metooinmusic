@@ -1,12 +1,12 @@
-import { Box, Link } from "@mui/material";
-
-import "./App.css";
+import { Card, Container, Link } from "@mui/material";
 
 const styles = {
   parent: {
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'start',
+    justifyContent: 'center',
+    height: '100vh',
+    width: '100vw',
   },
   header: {
     width: "100%",
@@ -20,22 +20,21 @@ const styles = {
   }
 }
 
-function App() {
+function About() {
 
   return (
     <>
-      <Box sx={styles.parent}>
-        <Box component="h1">Mapping MeToo in Music</Box>
-        <Box sx={styles.card}>
+      <Container sx={styles.parent}>
+        <Card sx={styles.card}>
           <p>
             🛠️ Site under construction! Check back soon 🧰
           </p>
           <Link href="https://gofund.me/5f1c7f9e">Support us on GoFundMe</Link>
-        </Box>
-      </Box>
+        </Card>
+      </Container>
 
     </>
   )
 }
 
-export default App
+export default About;
