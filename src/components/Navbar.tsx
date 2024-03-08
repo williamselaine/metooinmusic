@@ -27,7 +27,8 @@ export default function NavBar() {
       padding: '0px 32px',
     },
     title: {
-      fontSize: '46px',
+      fontSize: screenDimensions.isMobile ? '32px' : '46px',
+      width: screenDimensions.isMobile ? '200px' : '400px',
       display: 'inline-block',
       fontStyle: 'italic',
       color: Theme.light.tertiary,
@@ -42,15 +43,13 @@ export default function NavBar() {
     },
     show: {
         position: 'absolute',
-        left: '50px',
+        left: '24px',
         top: '5px',
-        width: '300px',
         marginLeft: '0px',
         opacity: '1.0',
         transition: '1s'
     },
     hide: {
-        width: '300px',
         position: 'absolute',
         left: screenDimensions.width,
         top: '5px',

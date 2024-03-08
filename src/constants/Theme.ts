@@ -1,6 +1,6 @@
 const Theme = {
     light: {
-      background: 'rgba(250,250,250,1)',
+      background: 'rgba(199,192,228,0.7)',
       secondaryBackground: 'rgba(230, 230, 230, 0.5)',
       secondaryBackgroundSolid: 'rgba(230, 230, 230, 1.0)',
       text: 'rgba(18,18,18,1)',
