@@ -1,21 +1,20 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { disableBodyScroll } from 'body-scroll-lock';
+import { Link, Navigate } from 'react-router-dom';
 import { Box, Button } from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
+import { disableBodyScroll } from 'body-scroll-lock';
 import Theme from '../constants/Theme';
 import useResizer from '../utils/useResizer';
 
 export default function NavBar() {
   const screenDimensions = useResizer();
-  const [showMenu, setShowMenu] = useState(!screenDimensions.isMobile);
+  const [toHome, setToHome] = useState(false);
 
   const targetElement = document.querySelector('#root');
   targetElement && disableBodyScroll(targetElement);
 
   useEffect(() => {
-    setShowMenu(!screenDimensions.isMobile);
-  }, [screenDimensions]);
+    setToHome(false);
+  }, [toHome]);
 
   const styles = {
     menu: {
@@ -25,9 +24,8 @@ export default function NavBar() {
       display: 'flex',
       flexDirection: 'row',
       justifyContent: 'space-between',
-      width: 'calc(100% - 64px)',
+      width: '100%',
       zIndex: '9999',
-      padding: '0px 32px',
     },
     title: {
       fontSize: screenDimensions.isMobile ? '32px' : '46px',
@@ -36,44 +34,16 @@ export default function NavBar() {
       fontStyle: 'italic',
       color: Theme.light.tertiary,
       fontWeight: '600',
-      margin: '0px'
+      cursor: 'pointer',
+      margin: '0px 0px 0px 32px',
     },
     buttonGroup: {
       display: 'flex',
-      flexDirection: 'row',
-      position: showMenu ? 1.0 : 0.0
-    },
-    show: {
-      position: 'absolute',
-      left: '24px',
-      top: '5px',
-      marginLeft: '0px',
-      opacity: '1.0',
-      transition: '1s'
-    },
-    hide: {
-      position: 'absolute',
-      left: screenDimensions.width,
-      top: '5px',
-      opacity: '0.0',
-      transition: '1s'
-    },
-    burger: {
-      position: 'absolute',
-      top: '42px',
-      left: `calc(100% - 82px)`
-    },
-    showBurger: {
-      opacity: '1.0',
-      transition: '1s'
-    },
-    hideBurger: {
-      opacity: '0.0',
-      transition: '1s'
     },
     button: {
       width: '100px',
-      fontSize: '32px',
+      fontSize: screenDimensions.isMobile ? '18px' : '32px',
+      alignItems: screenDimensions.isMobile ? 'start' : 'center',
       opacity: '0.8',
       fontStyle: 'italic',
       margin: '0px 12px',
@@ -81,33 +51,21 @@ export default function NavBar() {
         color: Theme.light.tertiary,
         textDecoration: 'none'
       }
-    }
-  };
-
-  const getClassName = (baseStyle: object, show: boolean, isMobile: boolean) => {
-    if (!isMobile) {
-      return baseStyle;
-    }
-    return show ? { ...baseStyle, ...styles.show } : { ...baseStyle, ...styles.hide };
+    },
   };
 
   return (
     <Box sx={styles.menu}>
-      <Box sx={getClassName(styles.title, !showMenu, screenDimensions.isMobile)}>Mapping #MeToo in Music</Box>
-      <Box sx={getClassName(styles.buttonGroup, showMenu, screenDimensions.isMobile)}>
-        <Button sx={styles.button}>
+      <Box sx={styles.title} onClick={() => setToHome(true)}>Mapping #MeToo in Music</Box>
+      <Box sx={styles.buttonGroup}>
+        {!screenDimensions.isMobile && <Button sx={styles.button}>
           <Link to='/'>Home</Link>
-        </Button>
+        </Button>}
         <Button sx={styles.button}>
           <Link to='/about'>About</Link>
         </Button>
       </Box>
-      <Button
-        sx={screenDimensions.isMobile ? { ...styles.burger, ...styles.showBurger } : { ...styles.burger, ...styles.hideBurger }}
-        onClick={() => setShowMenu(!showMenu)}
-      >
-        <MenuIcon style={{ color: Theme.light.tertiary }} />
-      </Button>
+      {toHome && <Navigate to={'/'} />}
     </Box>
   );
 }

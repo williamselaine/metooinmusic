@@ -46,9 +46,21 @@ function Home() {
           defaultZoom={defaultProps.zoom}
           options={{
             styles: defaultProps.style,
-            minZoom: 6,
-            disableDefaultUI: true,
-            draggable: true
+            minZoom: 5.5,
+            scaleControl: false,
+            zoomControl: false,
+            fullscreenControlOptions: {
+              position: 9,
+            },
+            restriction: {
+              latLngBounds: {
+                west: -5,
+                east: 25,
+                south: 30,
+                north: 60,
+              }
+            },
+            strictBounds: true,
           }}
         ></GoogleMapReact>
       </Container>
