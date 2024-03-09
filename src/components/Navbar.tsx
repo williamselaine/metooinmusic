@@ -46,7 +46,6 @@ export default function NavBar() {
       fontSize: screenDimensions.isMobile ? '18px' : '32px',
       alignItems: screenDimensions.isMobile ? 'start' : 'center',
       opacity: '0.8',
-      fontStyle: 'italic',
       margin: '0px 12px',
       '& a': {
         color: Theme.light.tertiary,

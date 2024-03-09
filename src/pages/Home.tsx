@@ -1,6 +1,5 @@
 import { Container } from '@mui/material';
-import GoogleMapReact from 'google-map-react';
-import MapTheme from '../constants/MapTheme.json';
+import Map from '../components/Map.jsx';
 
 const styles = {
   parent: {
@@ -12,57 +11,13 @@ const styles = {
     width: '100vw',
     height: '100vh'
   },
-  header: {
-    width: '100%'
-  },
-  card: {
-    padding: '2em 0px',
-    textAlign: 'center',
-    width: '100%',
-    boxShadow: '0px 10px 20px rgba(77, 97, 108, .24)',
-    borderRadius: '4px'
-  }
-};
-
-console.log(MapTheme);
-console.log(MapTheme[0].elementType);
-
-const defaultProps = {
-  center: {
-    lat: 50.9,
-    lng: 10.4
-  },
-  zoom: 6,
-  style: MapTheme
 };
 
 function Home() {
   return (
     <>
       <Container sx={styles.parent} maxWidth={false} disableGutters>
-        <GoogleMapReact
-          bootstrapURLKeys={{ key: import.meta.env.VITE_APP_MAPS_API_KEY }}
-          defaultCenter={defaultProps.center}
-          defaultZoom={defaultProps.zoom}
-          options={{
-            styles: defaultProps.style,
-            minZoom: 5.5,
-            scaleControl: false,
-            zoomControl: false,
-            fullscreenControlOptions: {
-              position: 9,
-            },
-            restriction: {
-              latLngBounds: {
-                west: -5,
-                east: 25,
-                south: 30,
-                north: 60,
-              }
-            },
-            strictBounds: true,
-          }}
-        ></GoogleMapReact>
+        <Map />
       </Container>
     </>
   );
