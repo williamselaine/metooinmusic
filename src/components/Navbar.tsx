@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, Navigate, useLocation } from 'react-router-dom';
 import { Box, Button } from '@mui/material';
 import { disableBodyScroll } from 'body-scroll-lock';
 import Theme from '../constants/Theme';
 import useResizer from '../utils/useResizer';
 
 export default function NavBar() {
+  const { pathname } = useLocation();
   const screenDimensions = useResizer();
   const [toHome, setToHome] = useState(false);
 
@@ -52,6 +53,14 @@ export default function NavBar() {
         textDecoration: 'none'
       }
     },
+    show: {
+      opacity: '1.0',
+      transition: '1s'
+    },
+    hide: {
+      opacity: '0.0',
+      transition: '1s'
+    },
   };
 
   return (
@@ -61,7 +70,7 @@ export default function NavBar() {
         {!screenDimensions.isMobile && <Button sx={styles.button}>
           <Link to='/'>Home</Link>
         </Button>}
-        <Button sx={styles.button}>
+        <Button sx={screenDimensions.isMobile && pathname === '/about' ? { ...styles.button, ...styles.hide } : { ...styles.button, ...styles.show }}>
           <Link to='/about'>About</Link>
         </Button>
       </Box>

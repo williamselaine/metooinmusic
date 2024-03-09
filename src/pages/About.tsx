@@ -7,6 +7,7 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
+    alignItems: 'center',
     height: '100vh',
     width: '100vw',
     backgroundColor: Theme.light.background
@@ -27,7 +28,6 @@ const styles = {
     textAlign: 'center',
     maxWidth: '600px',
     boxShadow: '0px 10px 20px rgba(77, 97, 108, .24)',
-    alignItems: 'center',
     borderRadius: '4px',
     backgroundColor: Theme.light.primary,
     '& a': {
