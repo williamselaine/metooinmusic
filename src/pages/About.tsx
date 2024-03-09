@@ -7,6 +7,7 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
+    alignItems: 'center',
     height: '100vh',
     width: '100vw',
     backgroundColor: Theme.light.background
@@ -23,9 +24,9 @@ const styles = {
     width: '100%'
   },
   card: {
-    padding: '2em 0px',
+    padding: '2em 12px',
     textAlign: 'center',
-    width: '100%',
+    maxWidth: '600px',
     boxShadow: '0px 10px 20px rgba(77, 97, 108, .24)',
     borderRadius: '4px',
     backgroundColor: Theme.light.primary,
@@ -48,7 +49,7 @@ function About() {
     <>
       <Container sx={show ? { ...styles.parent, ...styles.show } : { ...styles.parent, ...styles.hide }}>
         <Card sx={styles.card}>
-          <p>🛠️ Site under construction! Check back soon 🧰</p>
+          <p>🛠️ Under construction! Check back soon 🧰</p>
           <Link href='https://gofund.me/5f1c7f9e'>Support us on GoFundMe</Link>
         </Card>
       </Container>
