@@ -10,6 +10,9 @@ const styles = {
     alignItems: 'center',
     height: '100vh',
     width: '100vw',
+    maxWidth: 'unset !important',
+    margin: '0px',
+    padding: '0px',
     backgroundColor: Theme.light.background
   },
   show: {

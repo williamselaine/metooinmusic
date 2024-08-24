@@ -11,6 +11,7 @@ const Theme = {
     primary: 'rgba(199,192,228,1)',
     secondary: 'rgba(231,142,68,1)',
     tertiary: 'rgba(220,86,91,1)',
+    primaryDark: 'rgba(169, 164, 189,1)',
     boxShadow: '0px 10px 20px rgba(77, 97, 108, .24)',
     boxShadowLight: '0px 5px 10px rgba(77, 97, 108, .08)',
     boxShadowDark: '0px 5px 5px rgba(77, 97, 108, 0.8)',
