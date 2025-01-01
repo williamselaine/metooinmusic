@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import { Box, Button, CircularProgress, IconButton, InputLabel, MenuItem, Modal, Select } from '@mui/material';
+import { Box, Button, CircularProgress, IconButton, InputLabel, MenuItem, Modal, Select, NativeSelect } from '@mui/material';
 import { submitFlag } from '../services/APIService';
 import Theme from '../constants/Theme';
 import useResizer from '../utils/useResizer';
@@ -18,10 +18,9 @@ export default function AddFlag({ pins, setTriggerUpdateFlags }) {
     const styles = {
       button: {
         position: 'absolute',
-        bottom: '15px',
-        right: '0px',
+        bottom: screenDimensions.isMobile ? '120px' : '15px',
+        right: screenDimensions.isMobile ? '20px' : '0px',
         width: '100px',
-        height: '100px',
         margin: '0px 12px',
         '& a': {
           color: Theme.light.tertiary,
@@ -104,6 +103,19 @@ export default function AddFlag({ pins, setTriggerUpdateFlags }) {
                     Ich möchte eine Grenzüberschreitung oder einen Übergriff melden.
                     </p>
                     <InputLabel id="label">Hochschule</InputLabel>
+                    {
+                    screenDimensions.isMobile ? 
+                    <NativeSelect
+                        labelId="label"
+                        value={selectedSchool}
+                        label="Hochschule"
+                        onChange={(e) => setSelectedSchool(e.target.value)}
+                        sx={styles.dropdown}
+                    >
+                    {pins?.hochschulen?.map((pin, index) => (
+                        <option key={index} value={pin.name}>{pin.name}</option>
+                    ))}
+                    </NativeSelect> :
                     <Select
                         labelId="label"
                         value={selectedSchool}
@@ -115,6 +127,7 @@ export default function AddFlag({ pins, setTriggerUpdateFlags }) {
                         <MenuItem key={index} value={pin.name}>{pin.name}</MenuItem>
                     ))}
                     </Select>
+                    }
                     <Button sx={styles.submit} onClick={handleSubmit} variant={'outlined'} color='error'>
                         Senden
                     </Button>
