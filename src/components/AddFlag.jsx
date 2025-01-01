@@ -22,7 +22,6 @@ export default function AddFlag({ pins, setTriggerUpdateFlags }) {
         right: '0px',
         width: '100px',
         height: '100px',
-        opacity: '0.8',
         margin: '0px 12px',
         '& a': {
           color: Theme.light.tertiary,
@@ -80,7 +79,7 @@ export default function AddFlag({ pins, setTriggerUpdateFlags }) {
     return (
     <>
         <IconButton sx={styles.button} onClick={() => setShowModal(true)}>
-            <AddCircleOutlineIcon width="32" height="32" />
+            <AddCircleOutlineIcon width="32" height="32" color={'error'} />
         </IconButton>
         <Modal
             open={showModal}
