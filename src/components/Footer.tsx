@@ -2,7 +2,6 @@ import { Box, IconButton } from '@mui/material';
 import Theme from '../constants/Theme';
 import useResizer from '../utils/useResizer';
 import Instagram from '../assets/Instagram_logo_2022.png';
-import GoFundMe from '../assets/GoFundMe_logo.png';
 
 export default function NavBar() {
   const screenDimensions = useResizer();

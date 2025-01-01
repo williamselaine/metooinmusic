@@ -12,7 +12,7 @@ export default function AddFlag({ pins, setTriggerUpdateFlags }) {
     const [showModal, setShowModal] = useState(false);
     const [selectedSchool, setSelectedSchool] = useState('');
     const [isLoading, setIsLoading] = useState(false);
-    const [isError, setIsError] = useState(false);
+    const [, setIsError] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
 
     const styles = {
