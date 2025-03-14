@@ -1,19 +1,21 @@
 
 import React, { useState, useEffect, useRef } from 'react';
-import { Box, Container } from '@mui/material';
-import Deutschland from '../assets/deutschland';
-import Theme from '../constants/Theme';
 import * as d3 from 'd3';
-import { db } from '../firebase/firebase';
-import { doc, getDoc } from "firebase/firestore";
-import PlaceIcon from '@mui/icons-material/Place';
-import Tooltip from '@mui/material/Tooltip';
+import { Container } from '@mui/material';
+import Theme from '../constants/Theme';
+import Pins from './Pins';
+import Flags from './Flags';
+import Deutschland from '../assets/deutschland';
+import { usePins, useFlags } from '../services/APIService';
+import useResizer from '../utils/useResizer';
 
 const SCALE_FACTOR_WIDTH = 1800;
 const SCALE_FACTOR_RATIO = 1.5;
 const MOBILE_BREAKPOINT = 500;
 const Y_OFFSET_MOBILE = 140;
 const Y_OFFSET = 70;
+const MAX_ZOOM_FACTOR = 4;
+const MIN_ZOOM_FACTOR = 0.5;
 
 const styles = {
   parent: {
@@ -50,20 +52,26 @@ const styles = {
     '&:hover': {
       fill: Theme.light.secondary,
       transition: 'fill 0.5s'
-    }
+    },
   },
+  
 };
 
-function ZoomableSVG({ children, width, height }) {
+function Chart({ pins, flags }) {
+  const width = '100%';
+  const height = '100%';
+
+  const screenDimensions = useResizer();
+
   const svgRef = useRef();
-  const [k, setK] = useState(window.innerWidth < SCALE_FACTOR_WIDTH ? window.innerWidth * SCALE_FACTOR_RATIO / SCALE_FACTOR_WIDTH : 1);
-  const [x, setX] = useState(0);
+  const [k, setK] = useState(screenDimensions.isMobile ? (window.innerHeight - 150) * SCALE_FACTOR_RATIO / SCALE_FACTOR_WIDTH : 0.9);
+  const [x, setX] = useState(screenDimensions.isMobile ? -100 : (window.innerWidth / 20));
   const [y, setY] = useState(window.innerWidth < MOBILE_BREAKPOINT ? Y_OFFSET_MOBILE : Y_OFFSET);
   useEffect(() => {
-    const zoom = d3.zoom().on("zoom", (event) => {
+    const zoom = d3.zoom().scaleExtent([MIN_ZOOM_FACTOR, MAX_ZOOM_FACTOR]).on("zoom", (event) => {
       const { x, y, k } = event.transform;
-      setK(window.innerWidth < SCALE_FACTOR_WIDTH ? k * (window.innerWidth * SCALE_FACTOR_RATIO/SCALE_FACTOR_WIDTH): k);
-      setX(x);
+      setK(screenDimensions.isMobile ? k * ((window.innerHeight - 150) * SCALE_FACTOR_RATIO/SCALE_FACTOR_WIDTH): (0.9 * k));
+      setX(screenDimensions.isMobile ? x-100 : x+(window.innerWidth/20));
       setY(window.innerWidth < MOBILE_BREAKPOINT ? y + Y_OFFSET_MOBILE : y + Y_OFFSET);
     });
     d3.select(svgRef.current).call(zoom);
@@ -72,82 +80,26 @@ function ZoomableSVG({ children, width, height }) {
     <svg ref={svgRef} width={width} height={height}>
       <g width={'100%'} height={'100%'} transform={`translate(${x},${y})scale(${k})`}>
         <Deutschland />
-        {children}
+        {pins && pins.hochschulen && <Pins pins={pins} k={k} />}
+        {flags && flags.length && <Flags flags={flags} k={k} />}
       </g>
     </svg>
   );
 }
 
-function Pins({ pins }) {
-  const pinRefs = useRef([]);
-  useEffect(() => {
-    pinRefs.current = pinRefs.current.slice(0, pins.hochschulen.length);
-  }, [pins.hochschulen]);
-
-  return (
-    <g>
-      {pins.hochschulen.map((pin, index) => {
-        return (
-          <g key={index}transform={`translate(${pin.longitude * 82 - 253},${(55 - pin.latitude) * 138 + 70})`}>
-          <Tooltip title={pin.name} placement={'top'}>
-            <PlaceIcon sx={styles.pin} width={50} height={50} ref={el => pinRefs.current[index] = el}  onMouseOver={() => {
-              //  todo
-                // var sel = d3.select(pinRefs.current[index]);
-                // sel.raise();
-            }}/>
-          </Tooltip>
-          </g>
-        )
-      })}
-    </g>
-  );
-}
-
-function Chart({ pins }) {
-  console.log('cjart', pins);
-  const width = '100%';
-  const height = '100%';
-  return (
-    <ZoomableSVG width={width} height={height}>
-      {pins && pins.hochschulen && <Pins pins={pins}/>}
-    </ZoomableSVG>
-  );
-}
-
 function Map() {
   const [show, setShow] = useState(false);
+  const pins = usePins();
+  const flags = useFlags();
 
   useEffect(() => {
     setShow(true);
   }, []);
 
-  const [pins, setPins] = useState([]);
-
-  useEffect(() => {
-    let _pins;
-    const getPins = async () => {
-      const docRef = doc(db, "api", "pins");
-      const docSnap = await getDoc(docRef);
-
-      if (docSnap.exists()) {
-        _pins = docSnap.data();
-      } else {
-        // docSnap.data() will be undefined in this case
-        console.log("No such document!");
-      }
-      setPins(_pins);
-    };
-    getPins();
-  }, []);
-
-  useEffect(() => {
-    console.log(pins);
-  }, [pins])
-
   return (
     <>
       <Container sx={show ? { ...styles.parent, ...styles.show } : { ...styles.parent, ...styles.hide }}>
-        <Chart pins={pins} />
+        <Chart pins={pins} flags={flags} />
       </Container>
     </>
   );
