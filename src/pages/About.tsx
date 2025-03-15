@@ -39,7 +39,7 @@ function About() {
       maxWidth: screenDimensions.isMobile ? '300px' : '600px',
       maxHeight: 'calc(100vh - 200px)',
       overflow: 'auto',
-      marginTop: screenDimensions.isMobile ? '150px' : '0px',
+      marginTop: screenDimensions.isMobile ? '200px' : '100px',
       boxShadow: '0px 10px 20px rgba(77, 97, 108, .24)',
       borderRadius: '4px',
       backgroundColor: Theme.light.primary,
@@ -80,7 +80,7 @@ function About() {
             Betroffene Personen können hier eigenständig tätig werden und die Meldung einer #RedFlag 
             selbst vornehmen. 
           </p>
-          <h3>Zum Hintergrund:</h3>
+          <h4>Zum Hintergrund:</h4>
           <p>Noch immer gibt es für Betroffene von Machtmissbrauch zu wenig Anlaufstellen, explizit im 
             Klassikbereich. Auch herrscht zu viel Stillschweigen darüber, wo Grenzen überschritten 
             werden. Eine jahrhundertealte Ideengeschichte bildet ein Fundament, das Machtmissbrauch 
@@ -91,12 +91,12 @@ function About() {
             klassischen Musik noch immer von einem weißen und cis-männlichen Geniekult geprägt, 
             dem man im Hochschul- gleichermaßen wie auch im Konzertbetrieb, aber auch in der 
             wissenschaftlichen wie feuilletonistischen Wissensproduktion alltäglich begegnet. </p>
-          <h3>Über uns:</h3>
+          <h4>Über uns:</h4>
           <p>
             Wir sind ein Team aus Musiker*innen und Musikwissenschaftler*innen, die selber von Machtmissbrauch betroffen waren und die diese Gewalt innerhalb der Hochschulen endlich sichtbar machen wollen.
           </p>
           <Box sx={styles.linkbar}>
-              <h3>Kontakt:</h3>
+              <h4>Kontakt:</h4>
               <Box sx={styles.linkItems}>
                 <IconButton href="mailto:info@mappingmetooinmusic.de"><EmailIcon sx={{color: '#213547'}} /></IconButton>
                 <IconButton color={'primary'} href={'https://www.instagram.com/mapping_metoo_in_music/'}><InstagramIcon sx={{color: '#213547'}} /></IconButton>

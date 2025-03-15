@@ -42,8 +42,8 @@ export default function NavBar() {
       display: 'flex',
     },
     button: {
-      width: '100px',
-      fontSize: screenDimensions.isMobile ? '18px' : '32px',
+      width: '140px',
+      fontSize: screenDimensions.isMobile ? '18px' : '24px',
       alignItems: screenDimensions.isMobile ? 'start' : 'center',
       opacity: '0.8',
       margin: '0px 12px',
@@ -70,7 +70,7 @@ export default function NavBar() {
           <Link to='/'>Home</Link>
         </Button>}
         <Button sx={screenDimensions.isMobile && pathname === '/about' ? { ...styles.button, ...styles.hide } : { ...styles.button, ...styles.show }}>
-          <Link to='/about'>About</Link>
+          <Link to='/about'>Über uns</Link>
         </Button>
       </Box>
       {toHome && <Navigate to={'/'} />}

@@ -64,13 +64,13 @@ function Chart({ pins, flags }) {
   const screenDimensions = useResizer();
 
   const svgRef = useRef();
-  const [k, setK] = useState(screenDimensions.isMobile ? (window.innerHeight - 150) * SCALE_FACTOR_RATIO / SCALE_FACTOR_WIDTH : 0.9);
+  const [k, setK] = useState(screenDimensions.isMobile ? (window.innerHeight - 150) * SCALE_FACTOR_RATIO / SCALE_FACTOR_WIDTH : 0.7);
   const [x, setX] = useState(screenDimensions.isMobile ? -100 : (window.innerWidth / 20));
   const [y, setY] = useState(window.innerWidth < MOBILE_BREAKPOINT ? Y_OFFSET_MOBILE : Y_OFFSET);
   useEffect(() => {
     const zoom = d3.zoom().scaleExtent([MIN_ZOOM_FACTOR, MAX_ZOOM_FACTOR]).on("zoom", (event) => {
       const { x, y, k } = event.transform;
-      setK(screenDimensions.isMobile ? k * ((window.innerHeight - 150) * SCALE_FACTOR_RATIO/SCALE_FACTOR_WIDTH): (0.9 * k));
+      setK(screenDimensions.isMobile ? k * ((window.innerHeight - 150) * SCALE_FACTOR_RATIO/SCALE_FACTOR_WIDTH): (0.7 * k));
       setX(screenDimensions.isMobile ? x-100 : x+(window.innerWidth/20));
       setY(window.innerWidth < MOBILE_BREAKPOINT ? y + Y_OFFSET_MOBILE : y + Y_OFFSET);
     });
