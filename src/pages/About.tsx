@@ -37,6 +37,7 @@ function About() {
       padding: '1em 20px',
       textAlign: 'left',
       maxWidth: screenDimensions.isMobile ? '300px' : '600px',
+      maxHeight: 'calc(100vh - 200px)',
       overflow: 'auto',
       marginTop: screenDimensions.isMobile ? '100px' : '100px',
       boxShadow: '0px 10px 20px rgba(77, 97, 108, .24)',
