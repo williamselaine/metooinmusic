@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { db } from '../firebase/firebase';
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 
-const usePins = () => {
+const usePins = (triggerUpdate) => {
   const [pins, setPins] = useState([]);
 
   useEffect(() => {
@@ -19,11 +19,11 @@ const usePins = () => {
       setPins(_pins);
     };
     getPins();
-  }, []);
+  }, [triggerUpdate]);
   return pins;
 }
 
-const useFlags = () => {
+const useFlags = (triggerUpdate) => {
     const [flags, setFlags] = useState([]);
 
     useEffect(() => {
@@ -55,11 +55,33 @@ const useFlags = () => {
         }
       };
       getFlags();
-    }, []);
+    }, [triggerUpdate]);
     return flags;
 };
 
-export { usePins, useFlags };
+const submitFlag = async (_school) => {
+  const docsnap = await getDoc(doc(db, "api", "pins"));
+
+  if (docsnap.exists()) {
+    // increment the selected school
+    const schools = docsnap.data();
+    schools?.hochschulen.forEach(school => {
+      if(school.name === _school) {
+        school.flags++;
+      }
+    })
+    await setDoc(doc(db, "api", "pins"), schools);
+    return true;
+  } else {
+    // docSnap.data() will be undefined in this case
+    return false;
+  }
+}
+
+export { usePins, useFlags, submitFlag };
+
+
+// Helpers
 
 const getPinOffsets = (flags, flagIndex) => {
   if(flags <= 9) {

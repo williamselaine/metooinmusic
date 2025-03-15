@@ -5,6 +5,7 @@ import { Container } from '@mui/material';
 import Theme from '../constants/Theme';
 import Pins from './Pins';
 import Flags from './Flags';
+import AddFlag from './AddFlag';
 import Deutschland from '../assets/deutschland';
 import { usePins, useFlags } from '../services/APIService';
 import useResizer from '../utils/useResizer';
@@ -89,8 +90,9 @@ function Chart({ pins, flags }) {
 
 function Map() {
   const [show, setShow] = useState(false);
+  const [triggerUpdateFlags, setTriggerUpdateFlags] = useState(false);
   const pins = usePins();
-  const flags = useFlags();
+  const flags = useFlags(triggerUpdateFlags);
 
   useEffect(() => {
     setShow(true);
@@ -100,6 +102,7 @@ function Map() {
     <>
       <Container sx={show ? { ...styles.parent, ...styles.show } : { ...styles.parent, ...styles.hide }}>
         <Chart pins={pins} flags={flags} />
+        <AddFlag pins={pins} setTriggerUpdateFlags={setTriggerUpdateFlags} />
       </Container>
     </>
   );
