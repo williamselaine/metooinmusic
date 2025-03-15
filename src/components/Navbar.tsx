@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, Navigate, useLocation } from 'react-router-dom';
 import { Box, Button } from '@mui/material';
-import { disableBodyScroll } from 'body-scroll-lock';
 import Theme from '../constants/Theme';
 import useResizer from '../utils/useResizer';
 
@@ -9,9 +8,6 @@ export default function NavBar() {
   const { pathname } = useLocation();
   const screenDimensions = useResizer();
   const [toHome, setToHome] = useState(false);
-
-  const targetElement = document.querySelector('#root');
-  targetElement && disableBodyScroll(targetElement);
 
   useEffect(() => {
     setToHome(false);
@@ -30,7 +26,7 @@ export default function NavBar() {
     },
     title: {
       fontSize: screenDimensions.isMobile ? '32px' : '46px',
-      width: screenDimensions.isMobile ? '200px' : '400px',
+      width: screenDimensions.isMobile ? '300px' : '400px',
       display: 'inline-block',
       fontStyle: 'italic',
       color: Theme.light.tertiary,
@@ -58,7 +54,8 @@ export default function NavBar() {
     },
     hide: {
       opacity: '0.0',
-      transition: '1s'
+      transition: '1s',
+      display: 'none',
     },
   };
 
