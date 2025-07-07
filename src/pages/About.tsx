@@ -4,7 +4,7 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import EmailIcon from '@mui/icons-material/Email';
 import Theme from '../constants/Theme';
 import useResizer from '../utils/useResizer';
-import Datenschutz from '../../public/Datenschutz.pdf';
+import Datenschutz from '../assets/Datenschutz.pdf';
 
 function About() {
   const [show, setShow] = useState(false);
@@ -109,7 +109,7 @@ function About() {
               E-mail: elisabeth.treydte@folkwang-uni.de <br />
             </p>
           <h4>Datenschutzerklärung</h4>
-            <p><a href={Datenschutz} target="_blank">PDF</a></p>
+            <p><a href={Datenschutz} target='_blank'>Herunterladen</a></p>
           <br />
           <Box sx={styles.linkbar}>
               <Box sx={styles.linkItems}>
