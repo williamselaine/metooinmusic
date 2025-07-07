@@ -4,7 +4,7 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import EmailIcon from '@mui/icons-material/Email';
 import Theme from '../constants/Theme';
 import useResizer from '../utils/useResizer';
-import Datenschutz from '../assets/Datenschutz.pdf';
+import Datenschutz from '../../public/Datenschutz.pdf';
 
 function About() {
   const [show, setShow] = useState(false);
