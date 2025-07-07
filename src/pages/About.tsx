@@ -4,6 +4,7 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import EmailIcon from '@mui/icons-material/Email';
 import Theme from '../constants/Theme';
 import useResizer from '../utils/useResizer';
+import Datenschutz from '../assets/Datenschutzerklärung_MMM.pdf';
 
 function About() {
   const [show, setShow] = useState(false);
@@ -95,8 +96,22 @@ function About() {
           <p>
             Wir sind ein Team aus Musiker*innen und Musikwissenschaftler*innen, die selber von Machtmissbrauch betroffen waren und die diese Gewalt innerhalb der Hochschulen endlich sichtbar machen wollen.
           </p>
+          <h4>Impressum</h4>
+            <p>
+              Elisabeth Treydte<br />
+              Klemensborn 39<br />
+              Folkwang Universität der Künste< br/>
+              45239 Essen <br />
+            </p>
+          <h4>Kontakt</h4>
+            <p>
+              Telefon: 015117204900 <br />
+              E-mail: elisabeth.treydte@folkwang-uni.de <br />
+            </p>
+          <h4>Datenschutzerklärung</h4>
+            <p><a href={Datenschutz} target="_blank">PDF</a></p>
+          <br />
           <Box sx={styles.linkbar}>
-              <h4>Kontakt:</h4>
               <Box sx={styles.linkItems}>
                 <IconButton href="mailto:info@mappingmetooinmusic.de"><EmailIcon sx={{color: '#213547'}} /></IconButton>
                 <IconButton color={'primary'} href={'https://www.instagram.com/mapping_metoo_in_music/'}><InstagramIcon sx={{color: '#213547'}} /></IconButton>
